@@ -1,9 +1,6 @@
 import os
 import re
-import glob
 from pathlib import Path
-
-# CHANGE THOSE VARIABLE VALUES
 
 root_dir = os.environ['ROOT_DIR']
 
