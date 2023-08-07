@@ -6,10 +6,19 @@ Looks up scss variable references in a directory
    ```env
    # absolute root path of the project
    ROOT_DIR=""
+
    # file extension to look for
    EXTENSION="scss"
-   # if a variable occurs this amount of times in the entire project, don't log its name
+
+   # don't log if the variable occurs exactly this many times
    SKIP_AMOUNT=2
+
+   # don't log if the variable occurs more than this many times
+   MAX_AMOUNT=2
    ```
-2. Create varlist.txt file and paste variable names into it (one per line). For speed, a line can have other characters in it.
-3. Run using python3
+2. Create varlist.txt file and paste changed lines from your scss file.
+3. Run 
+   ```
+   pip3 install -r requirements.txt
+   ```
+4. Start loop.sh or lookup.py using python3

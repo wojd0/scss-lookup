@@ -7,8 +7,9 @@ from colorama import Fore
 load_dotenv()
 
 root_dir = os.environ['ROOT_DIR']
-skip_amount = os.environ['SKIP_AMOUNT']
+skip_amount = int(os.environ['SKIP_AMOUNT'])
 lookup_extension = os.environ['EXTENSION']
+below_limit = int(os.environ['MAX_AMOUNT'])
 pattern = r'--[a-z-]+'
 
 def find_string_in_directory(root_dir, search_strings):
@@ -35,15 +36,17 @@ def run_checks():
 
     print(Fore.GREEN, 'Tested ', len(result), ' variables')
     
+    # check if list at every key in result is empty
+    all_true = all([len(result[r]) == int(skip_amount) for r in result])
 
-    if len([x for x in result if len(x) == 0]) == 0:
+    if all_true:
         print(Fore.GREEN, 'All tested variables occurred', Fore.RED, skip_amount, Fore.GREEN, 'times in the entire project')
         return
     
     print(Fore.BLUE, 'Printing variables that did not occur', Fore.RED, skip_amount, Fore.BLUE, 'times in the entire project')
 
     for r in result:
-        if len(result[r]) != int(skip_amount):
+        if len(result[r]) != skip_amount and len(result[r]) < below_limit:
             print()
             print(Fore.RED, r, ' => ', len(result[r]))
             for path in result[r]:
